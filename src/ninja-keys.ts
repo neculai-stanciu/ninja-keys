@@ -97,6 +97,7 @@ export class NinjaKeys extends LitElement {
    * Show a modal
    */
   open(options: {parent?: string} = {}) {
+    console.log("Opening ninja keys called")
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
@@ -223,6 +224,7 @@ export class NinjaKeys extends LitElement {
       this._flatData
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
+          hotkeys.unbind(action.hotkey!);
           hotkeys(action.hotkey!, (event) => {
             event.preventDefault();
             if (action.handler) {
@@ -236,6 +238,7 @@ export class NinjaKeys extends LitElement {
 
   private _registerInternalHotkeys() {
     if (this.openHotkey) {
+        console.log("hotKeys called");
       hotkeys(this.openHotkey, (event) => {
         event.preventDefault();
         this.visible ? this.close() : this.open();
@@ -244,6 +247,7 @@ export class NinjaKeys extends LitElement {
 
     if (this.selectHotkey) {
       hotkeys(this.selectHotkey, (event) => {
+        console.log("select hotkey called");
         if (!this.visible) {
           return;
         }
